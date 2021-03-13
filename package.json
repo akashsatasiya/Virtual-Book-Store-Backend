@@ -1,0 +1,26 @@
+{
+  "name": "rc-backend-midsem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akashsatasiya/RC-backend-midsem.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akashsatasiya/RC-backend-midsem/issues"
+  },
+  "homepage": "https://github.com/akashsatasiya/RC-backend-midsem#readme"
+}
