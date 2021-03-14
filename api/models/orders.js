@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
-             _id : mongoose.Schema.Types.ObjectId,
+            oid : {type : String , required : true},
             totalPrice : {type : Number ,required : true} ,  
             sellerId : {type : String , required : true},
             buyerId : {type : String , required : true},

@@ -7,10 +7,12 @@ const mongoose = require('mongoose');
 // Routes 
 const userRoutes = require('./api/routes/user');
 
-const uri = 'mongodb+srv://akash:passw0rd@book-store.ez0yv.mongodb.net/RC-backend-book-shop?retryWrites=true&w=majority';
+const uri1 = 'mongodb+srv://akash:passw0rd@book-store.ez0yv.mongodb.net/RC-backend-book-shop?retryWrites=true&w=majority';
+const uri2 = 'mongodb+srv://sky_sky:sky_sky@node-rest-shop.7eiux.mongodb.net/node-rest-shop?retryWrites=true&w=majority' ;
+
 
 // Connection with db
-mongoose.connect(uri, {
+mongoose.connect(uri2, {
     useNewUrlParser: true,
     useUnifiedTopology: true 
 }).then(result => console.log(`connected to the database`)).catch( err => console.log(`error in connecting to database`));
