@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 // Routes 
 const userRoutes = require('./api/routes/user');
+const bookRoutes = require('./api/routes/books');
 
 const uri1 = 'mongodb+srv://akash:passw0rd@book-store.ez0yv.mongodb.net/RC-backend-book-shop?retryWrites=true&w=majority';
 const uri2 = 'mongodb+srv://sky_sky:sky_sky@node-rest-shop.7eiux.mongodb.net/node-rest-shop?retryWrites=true&w=majority' ;
@@ -23,6 +24,7 @@ app.use(express.urlencoded({extended : false}));
 
 
 app.use('/users',userRoutes);
+app.use('/books/',bookRoutes);
 
 app.use((req,res,next)=>
 {

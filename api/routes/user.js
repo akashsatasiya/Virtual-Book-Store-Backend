@@ -7,6 +7,22 @@ const uuid = require('uuid');
 const User = require('../models/user');
 const Book = require('../models/books');
 
+router.get('/:userId', (req,res,next) => {
+    User.findOne({uid : req.params.userId})
+    .select('uid email')
+    .exec()
+    .then( recvUser => {
+        res.status(201).json({
+            message : 'User Information',
+            user : recvUser
+        });
+    } )
+    .catch(err => { res.status(500).json({
+        message : 'Unable to fetch the user details',
+        error : err
+    }) })
+} );
+
 router.post('/signup', (req,res,next) =>{
      User.find({email : req.body.email})
      .exec()
@@ -132,7 +148,7 @@ router.post('/:userId/newBook', (req,res,next) =>{
                  book.save()
                  .then( result1 => {
                   return res.status(200).json( {
-                        message : "Book Updated",
+                        message : "Book Added",
                         result1
                         });
                  } ).catch(err => {
@@ -168,6 +184,80 @@ router.get('/:userId/view_all_books', (req,res,next) => {
         res.status(200).json('Unable to fetch books')
      } );
 } );
+// change
+router.patch('/:userId/:bookId', (req,res,next)=>{
+    const tbookId  = req.params.bookId;
+    User.findOne({uid : req.params.userId })
+    .exec()
+    .then( result => {
+        const tbooks = result.books;
+        console.log('Books :',tbooks);
+        // console.log(req.params.bookId);
+        let index = -1;
+        // console.log(req.params.bookId);
+        // console.log(tbooks[0]);
+         index =     tbooks.indexOf(tbookId);
+    //    console.log('index :',index)
+       if( index >= 0 ){
+           Book.updateOne({bid : req.params.bookId},{ $set : { bName : req.body.bName, price : req.body.price  }} )
+           .exec()
+           .then( result2 => {
+               return res.status(201).json({
+                   message : 'Book updated  ',
+                   result :result2
+               });
+           } )
+           .catch( err => {
+           return res.status(200).json('Unable to edit book 1')
+         } );
+       }
+       else
+       {
+        res.status(200).json('Unable to edit book 4');
+       }
+    } )
+    .catch( err => {
+        res.status(200).json('Unable to edit book');
+     } );
+} );
+
+router.delete('/:userId/:bookId', (req,res,next)=>{
+    const tbookId  = req.params.bookId;
+    User.findOne({uid : req.params.userId })
+    .exec()
+    .then( result => {
+        const tbooks = result.books;
+
+        let index = tbooks.indexOf(tbookId);
+        // console.log(index);
+      
+       if( index >= 0 ){
+        Book.deleteOne({bid : req.params.bookId})
+        .exec()
+        .then( result => {
+            res.status(201).json({
+                message :'Deleted Book',
+                result
+            })
+        } )
+        .catch( err => {
+            res.status(400).json({
+                message : 'Unable to delete the Book',
+                error :err
+            });
+        } );
+       }
+       else
+       {
+        res.status(200).json('Unable to delete book 4');
+       }
+    } )
+    .catch( err => {
+        res.status(200).json('Unable to delete book');
+     } );
+} );
+
+
 
 
 
