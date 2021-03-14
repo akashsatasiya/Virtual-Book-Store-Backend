@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const uuid = require('uuid');
 
 const User = require('../models/user');
+const Book = require('../models/books');
 
 router.post('/signup', (req,res,next) =>{
      User.find({email : req.body.email})
@@ -25,7 +26,7 @@ router.post('/signup', (req,res,next) =>{
                 }
                 else{
                     const user = new User({
-                        _id :  new mongoose.Types.ObjectId(),
+                        uid :  uuid.v4(),
                         email : req.body.email,
                         password : hash
                     });
@@ -86,6 +87,87 @@ router.post('/login', (req,res,next) =>{
                 });
                }
             );
+
+
+router.delete('/:userId',(req,res,next) => {
+    User.remove({uid : req.params.userId})
+    .exec()
+    .then( result => {
+        res.status(201).json({
+            message :'Deleted User',
+            result
+        })
+    } )
+    .catch( err => {
+        res.status(400).json({
+            message : 'Unable to delete the ID',
+            error :err
+        });
+    } );
+} );
+
+
+
+router.post('/:userId/newBook', (req,res,next) =>{
+        //   console.log(typeof req.params.userId);
+         
+          const book = new Book({
+              bid : uuid.v4(),
+              bName : req.body.bName,
+              price : req.body.price
+          });
+        //   console.log(typeof book.uid);
+
+          User.findOne({uid: req.params.userId})
+          .exec()
+          .then( user => {
+              console.log(user.uid);
+              const tbooks = user.books;
+              tbooks.push(book.bid);
+              const tid = user.uid;
+               console.log('Books :',tbooks)
+              User.updateOne({uid : req.params.userId}, {$set : { books : tbooks }} )
+              .exec()
+              .then( result => {
+                 book.save()
+                 .then( result1 => {
+                  return res.status(200).json( {
+                        message : "Book Updated",
+                        result1
+                        });
+                 } ).catch(err => {
+                    res.status(200).json({
+                        message :'Book not added 1',
+                        error : err});
+                 });
+                 
+                 
+              }).catch(err => {
+                res.status(200).json('Book not added 2');
+             } );
+             
+
+          } )
+          .catch( err => {
+             res.status(200).json('No id found')
+          } );
+         
+} );
+
+router.get('/:userId/view_all_books', (req,res,next) => {
+    User.findOne({uid : req.params.userId })
+    .populate()
+    .exec()
+    .then( result => {
+          res.status(200).json({
+              message : 'All the Books',
+              books : result.books
+          });
+    } )
+    .catch( err => {
+        res.status(200).json('Unable to fetch books')
+     } );
+} );
 
 
 
