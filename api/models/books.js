@@ -7,7 +7,7 @@ const bookSchema = new Schema({
             // bSubject : {type : String , required : true},
             // bCampus : {type :String ,required : true },
             // usageYear : {type : Number , required : true},
-            // owner : {type : String , required : true},
+            owner : {type : String , required : true},
             price : {type : Number, required : true} /*,*/
             // publishDateOnWebsite : {type : String }
         }

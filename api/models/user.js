@@ -22,8 +22,8 @@ const userSchema = new Schema({
             // penPoints : {type : Number , required : true},
             // blackList : {type : String , required : true},
             orders : {type :[String] , ref : 'Order' },
-            books : {type :[String],ref : 'Book'}
-            // wishlist : {type :[String],required : true}
+            books : {type :[String],ref : 'Book'},
+            wishlist : {type :[String]}
         }
 );
 
