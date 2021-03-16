@@ -6,9 +6,9 @@ const orderSchema = new Schema({
             totalPrice : {type : Number ,required : true} ,  
             sellerId : {type : [String] , required : true},
             buyerId : {type : [String] , required : true},
-            // dateOfOrder : {type :String ,required : true },
-            // buyerStatus : {type : String , required : true},
-            // sellerStatus : {type : String , required : true},
+            dateOfOrder : {type :Date ,required : true,default : Date.now() },
+            buyerStatus : {type : String ,enum : ['Yes','No'] ,required : true ,default : 'Yes' },
+            sellerStatus :{type : String ,enum : ['Yes','No'] ,required : true ,default : 'Yes' },
             books : {type :[String], required : true }
         }
 );
