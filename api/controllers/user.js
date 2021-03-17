@@ -37,6 +37,22 @@ exports.delete_user = (req,res,next) => {
     } );
 }
 
+exports.edit_userId = (req,res,next) => {
+    const updateOps = {}
+    for(const ops of req.body){updateOps[ops.propName] = ops.value}
+    User.updateOne({uid : req.params.userId},{ $set : updateOps })
+    .exec()
+    .then( result2 => {
+        return res.status(201).json({
+            message : 'User updated  ',
+            result :result2
+        });
+    } )
+    .catch( err => {
+    return res.status(200).json('Unable to edit User')
+  } );
+}
+
 exports.post_new_book = (req,res,next) =>{
     //   console.log(typeof req.params.userId);
      
@@ -351,4 +367,41 @@ exports.delete_book_wishlist = (req,res,next)=>{
     .catch( err => {
         res.status(200).json('Unable to delete book from wish list');
      } );
+}
+
+exports.add_notifications = (req,res,next) =>{
+
+      User.findOne({uid: req.params.userId})
+      .exec()
+      .then( user => {
+          const tnotifications = user.notifications;
+          const tnot = { msg : req.body.msg, time : Date.now()};
+          tnotifications.push(tnot);
+
+          User.updateOne({uid : req.params.userId}, {$set : { notifications : tnotifications }} )
+          .exec()
+          .then( result => {
+               res.status(201).json({ message : 'Notification added '})     
+             
+          }).catch(err => {
+            res.status(200).json('Notification not added');
+         } );
+         
+
+      } )
+      .catch( err => {
+         res.status(200).json('No id found')
+      } );
+     
+}
+
+exports.view_notifications = (req,res,next) => {
+    User.findOne({uid : req.params.userId})
+    .exec()
+    .then( user => {
+        res.status(201).json({
+            message : 'All notifications for id : '+ req.params.userId,
+            notifications : user.notifications,
+        });
+    } )
 }

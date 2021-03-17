@@ -23,7 +23,9 @@ const userSchema = new Schema({
             blackList : {type : String,enum :['Yes','No'] , required : true,default :'No'},
             orders : {type :[String] , ref : 'Order' },
             books : {type :[String],ref : 'Book'},
-            wishlist : {type :[String]}
+            wishlist : {type :[String]},
+            notifications : [{ msg : {type :String} , time : {type : Date , default : Date.now()} }]
+
         }
 );
 

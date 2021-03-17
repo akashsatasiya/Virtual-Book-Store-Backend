@@ -17,7 +17,7 @@ router.get('/:userId', checkAuth,userController.view_id );
 
 router.delete('/:userId',checkAuth,userController.delete_user );
 
-
+router.patch('/:userId',checkAuth,)
 
 router.post('/:userId/newBook', checkAuth,userController.post_new_book);
 
@@ -46,7 +46,11 @@ router.post('/:userId/:bookId/wishlist', checkAuth, userController.add_book_wish
 
 router.get('/:userId/view_wishlist', checkAuth, userController.view_wishlist );
 
-router.delete('/wishlist/:userId/:bookId', userController.delete_book_wishlist );
+router.delete('/wishlist/:userId/:bookId', checkAuth ,userController.delete_book_wishlist );
+
+router.get('/:userId/view_notifications', checkAuth, userController.view_notifications );
+
+router.post('/:userId/notifications', checkAuth , userController.add_notifications );
 
 
 module.exports = router;
