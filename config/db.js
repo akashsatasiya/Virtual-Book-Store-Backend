@@ -7,7 +7,7 @@ const connectDB = () =>  {mongoose.connect(process.env.MONGO_URI2, {
     useCreateIndex :true
 }).then(result => console.log(`connected to the database : `,result.connection.host)).catch( err => console.log(`error in connecting to database`,err));}
 
-
+  
 
 // const connectDB = async () => {
 //     try{
