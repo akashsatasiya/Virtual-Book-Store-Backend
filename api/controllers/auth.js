@@ -79,10 +79,11 @@ exports.login =  (req,res,next) =>{
                          });
                      }
                      if(result){
+                         const auth_key = process.env.JWT_KEY+ user.uid;
                          const token = jwt.sign({
                              email : user.email,
                              uid : user.uid
-                         }, process.env.JWT_KEY, 
+                         }, auth_key, 
                          {
                              expiresIn: "1h"
 
