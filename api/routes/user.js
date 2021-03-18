@@ -48,6 +48,7 @@ router.get('/:userId/view_wishlist', checkAuth, userController.view_wishlist );
 
 router.delete('/wishlist/:userId/:bookId', checkAuth ,userController.delete_book_wishlist );
 
+// Notification
 router.get('/:userId/view_notifications', checkAuth, userController.view_notifications );
 
 router.post('/:userId/notifications', checkAuth , userController.add_notifications );
