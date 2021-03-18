@@ -17,7 +17,7 @@ router.get('/:userId', checkAuth,userController.view_id );
 
 router.delete('/:userId',checkAuth,userController.delete_user );
 
-router.patch('/:userId',checkAuth,)
+router.patch('/:userId',checkAuth,userController.edit_userId);
 
 router.post('/:userId/newBook', checkAuth,userController.post_new_book);
 
