@@ -54,4 +54,4 @@ router.get('/:userId/view_notifications', checkAuth, userController.view_notific
 router.post('/:userId/notifications', checkAuth , userController.add_notifications );
 
 
-module.exports = router;
+module.exports = router; 
