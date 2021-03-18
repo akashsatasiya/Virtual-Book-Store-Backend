@@ -38,7 +38,7 @@ exports.delete_user = (req,res,next) => {
 }
 
 exports.edit_userId = (req,res,next) => {
-    console.log('userId : ',userId);
+    console.log('userId : ',req.params.userId);
     const updateOps = {}
     for(const ops of req.body){updateOps[ops.propName] = ops.value}
     User.updateOne({uid : req.params.userId},{ $set : updateOps })
