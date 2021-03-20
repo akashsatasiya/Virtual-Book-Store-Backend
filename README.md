@@ -3,3 +3,5 @@
 2. Endpoints/API documentation are present in API_DOCUMENTATION_BOOK_STORE.pdf
 
 3. Database Schema : database.md
+
+4. Video Link : https://youtu.be/W0-AKHIn9Ro
